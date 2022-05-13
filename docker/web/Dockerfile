@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:fermium-buster
 WORKDIR /src
 RUN /usr/local/bin/npm config set registry https://registry.npmmirror.com
 ADD startApp.sh /

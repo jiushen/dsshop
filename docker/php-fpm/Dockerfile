@@ -8,7 +8,8 @@ FROM php:7.4-fpm
 # sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zend_test zip
 COPY sources.list.stretch /etc/apt/sources.list
 RUN apt-get update \
-    && apt-get upgrade -y \
+    && apt-get upgrade -y
+RUN apt-get install -y --allow-downgrades zlib1g=1:1.2.11.dfsg-2 \
     && apt-get install -y nano \
     && apt-get install -y libfreetype6-dev \
     && apt-get install -y zlib1g-dev \
