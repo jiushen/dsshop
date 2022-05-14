@@ -70,6 +70,7 @@ services:
         aliases:
           - backend.dsshop
           - local.dsshop.com
+          - dsshop.test
 
   web:
     container_name: "dsshop-web"
