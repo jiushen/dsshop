@@ -80,7 +80,7 @@ services:
     build:
       context: ./docker/web/
     ports:
-      - "3005:3005"
+      - "3002:3002"
     volumes:
       - ./client/nuxt-web/mi/:/src/
     # restart: on-failure
