@@ -45,6 +45,7 @@ services:
       context: ./docker/php-fpm/
     volumes:
       - ./api:/var/www/html/
+      - ./plugin:/var/www/plugin/
     restart: on-failure
     networks:
       dsshop-network:
