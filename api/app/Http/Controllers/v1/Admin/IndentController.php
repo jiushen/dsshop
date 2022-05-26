@@ -74,6 +74,61 @@ class IndentController extends Controller
     }
 
     /**
+     * IndentList
+     * 订单列表--通过用户ID
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     * @queryParam  title string 订单查询
+     * @queryParam  limit int 每页显示条数
+     * @queryParam  sort string 排序
+     * @queryParam  page string 页码
+     *              XXXX
+     */
+    public function listByUid(Request $request)
+    {
+        GoodIndent::$withoutAppends = false;
+        GoodIndentCommodity::$withoutAppends = false;
+        $q = GoodIndent::query();
+        $q->withTrashed();
+        if ($request->activeIndex) {
+            if ($request->activeIndex == 7) {
+                $q->whereRaw('(state=7 OR state=8)');
+            } else {
+                $q->where('state', $request->activeIndex);
+            }
+        }
+        if ($request->uid) {
+            $q->where('user_id', $request->uid);
+        }
+        if ($request->title) {
+            $q->where(function ($q1) use ($request) {
+                $q1->orWhere('identification', $request->title)
+                    ->orWhere('odd', $request->title);
+            });
+            $q->orWhereHas('GoodLocation', function ($query) use ($request) {
+                $query->where('cellphone', $request->title)->orWhere('name', $request->title);
+            });
+            $q->orWhereHas('goodsList', function ($query) use ($request) {
+                $query->where('name', 'like', "%$request->title%");
+            });
+        }
+        $limit = $request->limit;
+        if ($request->has('sort')) {
+            if ($request->sort) {
+                $sortFormatConversion = sortFormatConversion($request->sort);
+                $q->orderBy($sortFormatConversion[0], $sortFormatConversion[1]);
+            } else {
+                $q->orderBy('sort', 'ASC')->orderBy('id', 'ASC');
+            }
+        }
+        $paginate = $q->with(['goodsList' => function ($q) {
+            $q->with(['goodSku']);
+        }, 'GoodLocation', 'Dhl'])->paginate($limit);
+        return resReturn(1, $paginate);
+    }
+
+
+    /**
      * IndentDetail
      * 订单详情
      * @param $id
