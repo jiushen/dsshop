@@ -4,6 +4,6 @@ cd /src
 #所有依赖已经在git上了，如果进行install会更新不同的版本反而跑不通
 #/usr/local/bin/npm install
 #/usr/local/bin/npm install nuxt
-/usr/local/bin/npm rebuild node-sass
+#/usr/local/bin/npm rebuild node-sass
 chmod 755 /src/node_modules/.bin/*
 /usr/local/bin/npm run dev
