@@ -38,7 +38,8 @@ Route::prefix('v'.config('dsshop.versions'))->namespace('v'.config('dsshop.versi
         Route::get('banner', 'BannerController@list')->name('client.bannerList');    //轮播列表
     });
     // 需要用户登录验证
-    Route::prefix('app')->namespace('Client')->middleware(['appverify', 'auth:web'])->group(function () {
+    //Route::prefix('app')->namespace('Client')->middleware(['appverify', 'auth:web'])->group(function () {
+    Route::prefix('app')->namespace('Client')->middleware(['appverify', 'auth:web,oauthweb'])->group(function () {
         Route::post('logout', 'LoginController@logout')->name('client.logout');    //登出
         Route::get('user', 'UserController@detail')->name('client.userinfo');    //用户信息
         Route::post('user', 'UserController@edit')->name('client.userinfoEdit');    //保存用户信息

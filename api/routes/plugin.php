@@ -18,7 +18,7 @@ Route::prefix('v'.config('dsshop.versions'))->namespace('v'.config('dsshop.versi
             // 前台插件列表
         });
         // 插件前台
-        Route::prefix('app')->namespace('Client')->middleware(['appverify', 'auth:web'])->group(function () {
+        Route::prefix('app')->namespace('Client')->middleware(['appverify', 'auth:web,oauthweb'])->group(function () {
             // APP验证插件列表
         });
         Route::prefix('app')->namespace('Client')->middleware(['appverify'])->group(function () {

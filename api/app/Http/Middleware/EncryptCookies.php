@@ -13,5 +13,7 @@ class EncryptCookies extends Middleware
      */
     protected $except = [
         //
+        "DSSHOP-PC-token",
+        "dsshop_session"
     ];
 }

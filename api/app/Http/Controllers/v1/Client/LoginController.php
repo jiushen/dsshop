@@ -71,6 +71,7 @@ class LoginController extends Controller
         $access_token['nickname'] = $user->nickname;
         $access_token['cellphone'] = $user->cellphone;
         $access_token['wechat'] = $user->wechat;
+        //return $this->sendLoginResponse($request);
         return resReturn(1, $access_token);
     }
 
