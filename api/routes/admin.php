@@ -31,6 +31,7 @@ Route::prefix('v' . config('dsshop.versions'))->namespace('v' . config('dsshop.v
         Route::get('authGroup', 'AdminController@getAuthGroupList')->name('admin.authGroupList')->middleware(['permissions:AdminList']);  //管理权限列表
         Route::get('admin/log', 'AdminController@log')->name('admin.adminLog')->middleware(['permissions:AdminLogList']);  //管理员操作日志
         Route::get('member', 'MemberController@list')->name('admin.memberList')->middleware(['permissions:MemberList']);  //会员列表
+        Route::get('member/findMemberByUserId', 'MemberController@findMemberByUserId')->name('admin.memberList')->middleware(['permissions:MemberList']);  //会员列表--通过uid查询
         Route::post('member', 'MemberController@create')->name('admin.memberCreate')->middleware(['permissions:MemberCreate']);  //创建会员
         Route::post('member/{id}', 'MemberController@edit')->name('admin.memberEdit')->middleware(['permissions:MemberEdit']);  //保存会员
         Route::get('manage', 'ManageController@list')->name('admin.manageList')->middleware(['permissions:ManageList']);  //管理组管理
@@ -74,6 +75,7 @@ Route::prefix('v' . config('dsshop.versions'))->namespace('v' . config('dsshop.v
         Route::post('dhl/{id}', 'DhlController@edit')->name('admin.dhlEdit')->middleware(['permissions:DhlEdit']);    //保存快递公司
         Route::post('dhl/destroy/{id}', 'DhlController@destroy')->name('admin.dhlDestroy')->middleware(['permissions:DhlDestroy']);    //删除快递公司
         Route::get('indent', 'IndentController@list')->name('admin.indentList')->middleware(['permissions:IndentList']);    //订单列表
+        Route::get('indent/listByUid', 'IndentController@listByUid')->name('admin.indentList')->middleware(['permissions:IndentList']);    //订单列表--用户ID
         Route::get('indent/{id}', 'IndentController@detail')->name('admin.indentDetail')->middleware(['permissions:IndentDetail']);    //订单详情
         Route::post('indent/shipment', 'IndentController@shipment')->name('admin.indentShipment')->middleware(['permissions:IndentShipment']); //发货
         Route::post('indent/dhl', 'IndentController@dhl')->name('admin.indentDhl')->middleware(['permissions:IndentDhl']); //保存配送信息

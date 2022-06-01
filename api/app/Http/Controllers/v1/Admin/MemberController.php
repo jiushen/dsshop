@@ -52,6 +52,36 @@ class MemberController extends Controller
         return resReturn(1, $paginate);
     }
 
+    public function findMemberByUserId(Request $request)
+    {
+        User::$withoutAppends = false;
+        $q = User::query();
+        $limit = $request->limit;
+        if ($request->has('sort')) {
+            $sortFormatConversion = sortFormatConversion($request->sort);
+            $q->orderBy($sortFormatConversion[0], $sortFormatConversion[1]);
+        }
+        if ($request->state) {
+            $q->where('state', $request->state);
+        }
+        if ($request->title) {
+            $q->where('id', $request->title)->orWhere('cellphone', $request->title)->orWhere('name', 'like', '%' . $request->title . '%');
+        }
+        if ($request->uid) {
+            $q->where('id', $request->uid);
+        }
+        if ($request->timeInterval) {
+            $timeInterval = explode("至", $request->timeInterval);
+            $timeInterval[0] = $timeInterval[0] . ' 00:00:00';
+            $timeInterval[1] = $timeInterval[1] . ' 23:59:59';
+            $q->where('created_at', '>=', $timeInterval[0]);
+            $q->where('created_at', '<=', $timeInterval[1]);
+        }
+        $paginate = $q->paginate($limit);
+        return resReturn(1, $paginate);
+    }
+
+
     /**
      * MemberCreate
      * 创建会员
