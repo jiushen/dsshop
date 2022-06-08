@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'lessee' => \App\Http\Middleware\LesseeVerify::class,
         'appverify' => \App\Http\Middleware\AppVerify::class,
         'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
+        'qidian' => \App\Http\Middleware\QidianFilter::class,
     ];
 
     /**
