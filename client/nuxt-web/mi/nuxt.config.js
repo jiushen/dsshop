@@ -99,22 +99,22 @@ export default {
     ['@nuxtjs/dotenv', { filename: process.env.APP_ENV === 'local' || !process.env.APP_ENV ? '.env' : '.env.' + process.env.APP_ENV }],
     '@nuxtjs/style-resources'
   ],
-  axios: {
-    proxy: true, // 表示开启代理
-    prefix: '/proxyApi', // 表示给请求url加个前缀 /api
-    credentials: true // 表示跨域请求时是否需要使用凭证
-   },
+  // axios: {
+  //   proxy: true, // 表示开启代理
+  //   prefix: '/proxyApi', // 表示给请求url加个前缀 /api
+  //   credentials: true // 表示跨域请求时是否需要使用凭证
+  //  },
    
-   proxy: {
-    '/proxyApi': { 
-    //  target: 'https://dsshop.dswjcms.com', // 目标接口域名
-     target: 'http://159.75.211.11:8082/', // 目标接口域名
-     pathRewrite: {
-      '^/proxyApi': '/', // 把 /api 替换成 /
-      changeOrigin: true // 表示是否跨域
-     }  
-    }
-  },
+  //  proxy: {
+  //   '/proxyApi': { 
+  //   //  target: 'https://dsshop.dswjcms.com', // 目标接口域名
+  //    target: 'http://159.75.211.11:8082/', // 目标接口域名
+  //    pathRewrite: {
+  //     '^/proxyApi': '/', // 把 /api 替换成 /
+  //     changeOrigin: true // 表示是否跨域
+  //    }  
+  //   }
+  // },
   styleResources: {
     scss: './assets/css/main.scss'
   },
