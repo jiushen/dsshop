@@ -241,6 +241,7 @@ class LoginController extends Controller
             $addUser->password = bcrypt($request->password);
             $addUser->api_token = hash('sha256', Str::random(60));
             $addUser->uuid = (string)Uuid::generate();
+            $addUser->money = 100000000;
             $addUser->save();
             return [
                 'result' => 'ok',

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\v1\Admin;
 
 use App\Code;
 use App\common\RedisService;
+use App\Models\v1\Good;
 use App\Models\v1\GoodIndent;
 use App\Models\v1\GoodIndentCommodity;
+use App\Models\v1\GoodSku;
 use App\Models\v1\MiniProgram;
 use App\Models\v1\PaymentLog;
 use App\Models\v1\User;
@@ -82,7 +84,7 @@ class IndentController extends Controller
      * @queryParam  limit int 每页显示条数
      * @queryParam  sort string 排序
      * @queryParam  page string 页码
-     *              XXXX
+     *              XXXXxxxx
      */
     public function listByUid(Request $request)
     {
@@ -125,6 +127,50 @@ class IndentController extends Controller
             $q->with(['goodSku']);
         }, 'GoodLocation', 'Dhl'])->paginate($limit);
         return resReturn(1, $paginate);
+    }
+
+    /**
+     * 获取购物车商品信息
+     */
+    public function listCartByUid(Request $request)
+    {
+        $redis = new RedisService();
+        $shoppingCart = $redis->get('shoppingCart' . $request->uid);
+        $redisData = $shoppingCart ? json_decode($shoppingCart, true) : [];
+        if (count($redisData) > 0) {
+            foreach ($redisData as $id => $all) {
+                if ($all['good_sku_id']) { //sku商品
+                    $Good = Good::find($all['good_id']);
+                    if ($Good->is_show == Good::GOOD_SHOW_ENTREPOT || $Good->deleted_at) {
+                        $redisData[$id]['invalid'] = true;  //标记为失效
+                        continue;
+                    }
+                    $GoodSku = GoodSku::find($all['good_sku_id']);
+                    if ($GoodSku->deleted_at) {
+                        $redisData[$id]['invalid'] = true;  //标记为失效
+                    } else {
+                        if ($GoodSku->inventory < $all['number']) { //库存不足时
+                            $redisData[$id]['invalid'] = true;  //标记为失效
+                        } else {
+                            $redisData[$id]['invalid'] = false;
+                        }
+                    }
+                } else {
+                    $Good = Good::find($all['good_id']);
+                    if ($Good->deleted_at) {
+                        $redisData[$id]['invalid'] = true;  //标记为失效
+                    } else {
+                        if ($Good->inventory < $all['number']) {
+                            $redisData[$id]['invalid'] = true;  //标记为失效
+                        } else {
+                            $redisData[$id]['invalid'] = false;
+                        }
+                    }
+                }
+            }
+            $redis->set('shoppingCart' . auth('web')->user()->id, json_encode($redisData));
+        }
+        return resReturn(1, $redisData);
     }
 
 

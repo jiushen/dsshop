@@ -49,6 +49,9 @@ class GoodController extends Controller
             }
 
         }
+        if ($request->recommend) {
+            $q->where('is_recommend', Good::GOOD_RECOMMEND_YES);
+        }
         if ($request->title) {
             $q->where(function ($q1) use ($request) {
                 $q1->where('name', 'like', '%' . $request->title . '%')
