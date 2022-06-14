@@ -46,40 +46,42 @@ class QidianFilter
 
         $response = $next($request);
 
-        if($response->status()==200){
-            $newret['code'] = 0;
-            $newret['message'] = "success";
+        if($qidian_flag || $user_flag){
+            if($response->status()==200){
+                $newret['code'] = 0;
+                $newret['message'] = "success";
 
-            if($qidian_flag)
-            {
-                $ret = $response->getContent();
-                $retobj = json_decode($ret);
-                $newret['data'] = [
-                    "accessToken"=>$retobj->access_token
-                ];
-            }else if($user_flag){
-                $ret = $response->getContent();
-                $retobj = json_decode($ret);
-                $rsp_token = $retobj->access_token;
-                $user_token = (new Parser(new JoseEncoder()))->parse($rsp_token)->claims()->all()['jti'];
-                $user_id = Token::find($user_token)->user_id;
-                $user = \App\Models\v1\User::find($user_id);
-                $newret['data'] = [
-                    "openID"=>$user->uuid,
-                    "type"=>99,
-                    "nickname"=>$user->nickname,
-                    "gender"=>$user->gender,
-                    "avatar"=>$user->portrait,
-                    "email"=>$user->email,
+                if($qidian_flag)
+                {
+                    $ret = $response->getContent();
+                    $retobj = json_decode($ret);
+                    $newret['data'] = [
+                        "accessToken"=>$retobj->access_token
                     ];
+                }else if($user_flag){
+                    $ret = $response->getContent();
+                    $retobj = json_decode($ret);
+                    $rsp_token = $retobj->access_token;
+                    $user_token = (new Parser(new JoseEncoder()))->parse($rsp_token)->claims()->all()['jti'];
+                    $user_id = Token::find($user_token)->user_id;
+                    $user = \App\Models\v1\User::find($user_id);
+                    $newret['data'] = [
+                        "openID"=>$user->uuid,
+                        "type"=>99,
+                        "nickname"=>$user->nickname,
+                        "gender"=>$user->gender,
+                        "avatar"=>$user->portrait,
+                        "email"=>$user->email,
+                        ];
+                }
+            }else{
+                $newret['code'] = $response->status();
+                $newret['message'] = $response::$statusTexts[$response->status()];
+                $newret['data'] = "";
             }
-        }else{
-            $newret['code'] = $response->status();
-            $newret['message'] = $response::$statusTexts[$response->status()];
-            $newret['data'] = "";
-        }
 
-        $response->setContent(json_encode($newret));
+            $response->setContent(json_encode($newret));
+        }
 
         return $response;
     }
