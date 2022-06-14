@@ -6,13 +6,15 @@ export default {
     height: '2px'
   },
   server: {
-    port: 3002, // default: 3000
-    host: '0.0.0.0', // 本地需要测试pwa的话，改成localhost,
-    // host: 'localhost',
+    port: 3005, // default: 3000
+    // host: '0.0.0.0', // 本地需要测试pwa的话，改成localhost,
+    host: 'localhost',
   },
   env: {
     baseUrl: process.env.BASE_URL,
-    APP_ENV: process.env.APP_ENV
+    APP_ENV: process.env.APP_ENV,
+    PROJECT_KEY: 'base64:szoJ3mSx/5U7zOsJfU7s4pSahiwdh01x6badmz5FtCM=',
+    IBS_KEY: 'BHBBZ-25TCP-YRODO-VQXIO-RZKP6-AEBEC'
   },
   router: {
     middleware: ['refreshToken', 'terminal']
@@ -97,6 +99,22 @@ export default {
     ['@nuxtjs/dotenv', { filename: process.env.APP_ENV === 'local' || !process.env.APP_ENV ? '.env' : '.env.' + process.env.APP_ENV }],
     '@nuxtjs/style-resources'
   ],
+  axios: {
+    proxy: true, // 表示开启代理
+    prefix: '/proxyApi', // 表示给请求url加个前缀 /api
+    credentials: true // 表示跨域请求时是否需要使用凭证
+   },
+   
+   proxy: {
+    '/proxyApi': { 
+    //  target: 'https://dsshop.dswjcms.com', // 目标接口域名
+     target: 'http://159.75.211.11:8082/', // 目标接口域名
+     pathRewrite: {
+      '^/proxyApi': '/', // 把 /api 替换成 /
+      changeOrigin: true // 表示是否跨域
+     }  
+    }
+  },
   styleResources: {
     scss: './assets/css/main.scss'
   },
