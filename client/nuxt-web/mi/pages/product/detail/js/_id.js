@@ -131,6 +131,13 @@ export default {
       }).then(response => {
         this.commentTotal = response.total
       })
+    },
+    //跳转到工作台
+    toJump(index){
+      let path = 'http://114.132.159.89:8081/oauth'
+      window.open(path, '_blank');
+      console.log(index)
+
     }
   }
 }

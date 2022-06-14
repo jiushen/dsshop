@@ -57,6 +57,7 @@
             <el-button type="danger" plain @click="buy(true)">立即购买</el-button>
             <el-button type="danger" @click="buy(false)">加入购物车</el-button>
             <el-button type="info" :class="{'product-detail-on' : collect}" icon="el-icon-star-off" @click="toCollect">收藏</el-button>
+            <el-button type="primary" class="jumpButton" @click="toJump(goodDetail.id)">在线咨询</el-button>
             <coupon v-if="isCoupon"></coupon>
           </div>
           <el-tag v-if="goodDetail.integral_commodity_count" type="warning" style="margin-top:20px;">可积分抵扣</el-tag>

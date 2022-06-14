@@ -19,3 +19,11 @@ export function goodCategory(query) {
     params: query
   })
 }
+
+export function goosList(query) {
+  return request({
+    url: 'getGoodsList',
+    method: 'GET',
+    params: query
+  })
+}

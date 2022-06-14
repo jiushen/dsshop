@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <Header />
+    <Header v-if="!isDemo" />
     <template v-if="!isDev">
       <Nuxt keep-alive/>
     </template>
@@ -8,8 +8,8 @@
       <Nuxt/>
     </template>
 
-    <Footer />
-    <el-backtop/>
+    <Footer v-if="!isDemo"/>
+    <el-backtop v-if="!isDemo"/>
   </div>
 </template>
 
