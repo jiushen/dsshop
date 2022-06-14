@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+//use App\Http\Middleware\QdAuthenticationException;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+//use Illuminate\Support\Facades\Redirect;
 
 class Handler extends ExceptionHandler
 {
@@ -49,6 +52,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AuthenticationException) {
+            return parent::render($request, $exception);
+        }
+//        if ($exception instanceof QdAuthenticationException && $request->path()=="oauth/authorize") {
+//            return Redirect::to('http://172.20.67.194:3002/pass/login');
+//        }
+
         $error = $this->convertExceptionToResponse($exception);
         $response['status_code'] = $error->getStatusCode();
         $response['code'] = $exception->getCode();

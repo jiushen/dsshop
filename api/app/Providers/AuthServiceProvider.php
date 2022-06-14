@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
             //配置开放路由
             $router->forAccessTokens();
         }, ['prefix' => 'api']);
+
+        Passport::routes();
+
+        //Passport::cookie('DSSHOP-PC-token');
         // token失效时间
         Passport::tokensExpireIn(now()->addSeconds(config('passport.expires_in')));
         Passport::refreshTokensExpireIn(now()->addSeconds(config('passport.refresh_expires_in')));

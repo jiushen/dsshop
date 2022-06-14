@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
-
+    public const HOME = '/home';
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -45,7 +45,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         Route::post('/oauth/token', [
             'uses' => '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken',
-            'middleware' => 'throttle:600,1',
+            'middleware' => ['throttle:600,1','qidian'],
         ]);
 
     }

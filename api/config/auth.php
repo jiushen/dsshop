@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'oauthweb',
         'passwords' => 'users',
     ],
 
@@ -38,6 +38,11 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'passport',
+            'provider' => 'users',
+        ],
+
+        'oauthweb' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
 
