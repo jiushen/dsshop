@@ -28,7 +28,7 @@
                     <div class="operation">
                         <span>共{{item.goods_list.length}}件</span>
                         <a href="javascript:void(0)" @click="sendData(item.id)">
-                          <img src="~/assets/img/normal@2x.png"/>
+                          <img src="./assets/icons/normal.png"/>
                         </a>
                     </div>
                 </div>

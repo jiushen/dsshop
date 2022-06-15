@@ -51,6 +51,7 @@ export default {
         }
     },
     mounted() {
+        // this.fetchjsApi()
         this.fetchUser()
     },
     methods: {
@@ -70,6 +71,24 @@ export default {
             })
 
         },
+        fetchjsApi(){
+            var eventName = 'AIOActivate'; 
+            var handler = function (result) {
+                let code = result.code,
+                    msg = result.msg,
+                    data = result.data;
+                console.log(code,msg,data,"result")
+            };
+            qidian.registerEvent({
+              eventName: eventName,
+              // Channel:0,
+              listener: handler,
+              fail: function (error) {
+                  var code = error.code,
+                      msg = error.msg; 
+              }
+            })
+        }
         // fetchToken(){
         //     let token= getToken('token')
         //     return token
@@ -105,7 +124,7 @@ export default {
                     color: rgba(138,147,169,1);
                 }
                 .ship-name{
-                    width:7%;
+                    width:10%;
                     min-width:52px;
                     margin-right:5px;
                 }
