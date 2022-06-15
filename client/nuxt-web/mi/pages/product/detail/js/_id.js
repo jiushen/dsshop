@@ -7,6 +7,7 @@ import Comment from '@/pages/comment/list'
 import {good} from '@/api/comment'
 import coupon from '@/pages/coupon/components'
 import {verifyPlugin} from '@/api/plugin'
+import { getToken } from '@/plugins/auth';
 export default {
   components: {
     sku,
@@ -134,10 +135,18 @@ export default {
     },
     //跳转到工作台
     toJump(index){
-      let path = 'http://114.132.159.89:8081/oauth'
-      // window.open(path, '_blank');
-      console.log(index)
+      let token= getToken('token')
+      console.log(token)
+      if(!token){
+          let path = 'http://114.132.159.89:8081/oauth'
+          // window.open(path, '_blank');
+          window.location.href = path
 
+      }else{
+        let pathTwo='https://wpa1.qq.com/odXagI?_type=wpa&qidian=true&auth=commonAuth&code=SSO54321&wpaShowItemId=123'
+        let href= `${pathTwo}&qidian_ex1=${index}`;
+        window.open(href, '_blank');
+      }
     }
   }
 }
