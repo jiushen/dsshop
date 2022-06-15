@@ -40,9 +40,15 @@
 
 <script>
   import { orderList} from '@/api/user'
+  import jsApi from './assets/js/jsApi.js';
   export default {
     name: 'ecsettingOrder',
     // components: { TabFilter },
+    head:{
+      script:[
+          {src:'http://bqq.gtimg.com/qidian-jssdk/release/2.0.0/qidian-jssdk.min.js',type:'text/javascript'}
+      ]
+    },
     data() {
       return {
         keyWords: '',
@@ -50,7 +56,8 @@
         loading: false,
         currentPage: 1, // 当前第几页
         maxPage: 1,    // 总共多少页
-        count: 5
+        count: 5,
+        uid:1
       }
     },
     computed: {
@@ -78,6 +85,7 @@
             let keyWords = {keyword: this.keyWords}
             this.queryParams = Object.assign(this.queryParams, keyWords)
         }
+        this.uid = jsApi.fetchjsApi()
         orderList(this.queryParams).then(res => {
             this.loading = false;
             this.maxPage = Math.ceil(res.total / this.count);

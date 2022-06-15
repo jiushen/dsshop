@@ -59,10 +59,16 @@
 import TabFilter from './components/tab-filter.vue';
 import GoodsItem from './components/goods-item.vue';
 import { goosList } from '@/api/good'
+import jsApi from './assets/js/jsApi.js';
 
 export default {
     components: { TabFilter,GoodsItem },
     name:'goods',
+    head:{
+      script:[
+          {src:'http://bqq.gtimg.com/qidian-jssdk/release/2.0.0/qidian-jssdk.min.js',type:'text/javascript'}
+      ]
+    },
     data() {
         return {
             goodsList:[], // 全部
@@ -83,7 +89,8 @@ export default {
             pageSize:10, //每页数量
             pageNum: 1 ,//当前页
             pageTotal: 0,//总条数
-            num: 0
+            num: 0,
+            uid:1
 
         }
     },
@@ -137,11 +144,12 @@ export default {
             if(this.selectedSelector === 3){
                 listType = 0
             }
+            this.uid = jsApi.fetchjsApi()
             let params={
                 limit: this.pageSize,
                 page: this.pageNum,
                 keyword: value,
-                uid: 1,
+                uid: this.uid,
                 sort: '-created_at',
                 listType: listType
             }

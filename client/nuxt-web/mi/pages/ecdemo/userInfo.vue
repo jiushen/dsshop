@@ -41,26 +41,33 @@
 <script>
 import { openapi } from '@/api/user'
 import { getToken } from '@/plugins/auth';
+import jsApi from './assets/js/jsApi.js';
 
 export default {
     name:'userInfo',
+    head:{
+      script:[
+          {src:'http://bqq.gtimg.com/qidian-jssdk/release/2.0.0/qidian-jssdk.min.js',type:'text/javascript'}
+      ]
+    },
     data() {
         return {
             shipObj:{},
-            loading: true
+            loading: true,
+            uid:1
         }
     },
     mounted() {
-        // this.fetchjsApi()
         this.fetchUser()
     },
     methods: {
         fetchUser(){
             // let access_token = this.fetchToken()
+            this.uid = jsApi.fetchjsApi()
             let params = {
                 // access_token: access_token,
                 // code: 1,
-                uid:1
+                uid:this.uid
             }
             openapi(params).then(res => {
                 this.shipObj = res.data[0]
@@ -71,24 +78,6 @@ export default {
             })
 
         },
-        fetchjsApi(){
-            var eventName = 'AIOActivate'; 
-            var handler = function (result) {
-                let code = result.code,
-                    msg = result.msg,
-                    data = result.data;
-                console.log(code,msg,data,"result")
-            };
-            qidian.registerEvent({
-              eventName: eventName,
-              // Channel:0,
-              listener: handler,
-              fail: function (error) {
-                  var code = error.code,
-                      msg = error.msg; 
-              }
-            })
-        }
         // fetchToken(){
         //     let token= getToken('token')
         //     return token
