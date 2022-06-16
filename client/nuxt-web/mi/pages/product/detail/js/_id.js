@@ -133,10 +133,9 @@ export default {
       })
     },
     //跳转到工作台
-    toJump(index){
-        let path = 'http://dsshop.test/oauth/authorize?client_id=4&response_type=code&scope=%2A&state=DdVUdF32xwRPU42hEDTfwAvVIoh21PeYsao6noAr'
-        let pathTwo='https://wpa1.qq.com/odXagI?_type=wpa&qidian=true&auth=commonAuth&code=SSO54321&wpaShowItemId=123'
-        let href= `${path}&redirect_uri=${pathTwo}&qidian_ex1=${index}`;
+    toJump(id){
+        let path = 'http://dsshop.test/oauth/authorize?client_id=4&redirect_uri=https%3A%2F%2Fwpa1.qq.com%2FNQY4CF1Z%3F_type%3Dwpa%26qidian%3Dtrue%26auth%3DcommonAuth&response_type=code&scope=%2A&state=DdVUdF32xwRPU42hEDTfwAvVIoh21PeYsao6noAr'
+        let href= `${path}&qidian_ex1=${id}&wpaShowItemId=123`;
         window.open(href, '_blank');
     }
   }
