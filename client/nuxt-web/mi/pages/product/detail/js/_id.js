@@ -136,7 +136,7 @@ export default {
     toJump(index){
         let path = 'http://dsshop.test/oauth/authorize?client_id=4&response_type=code&scope=%2A&state=DdVUdF32xwRPU42hEDTfwAvVIoh21PeYsao6noAr'
         let pathTwo='https://wpa1.qq.com/odXagI?_type=wpa&qidian=true&auth=commonAuth&code=SSO54321&wpaShowItemId=123'
-        let href= `${path}&${pathTwo}&qidian_ex1=${index}`;
+        let href= `${path}&redirect_uri=${pathTwo}&qidian_ex1=${index}`;
         window.open(href, '_blank');
     }
   }
