@@ -68,7 +68,7 @@ class MemberController extends Controller
             $q->where('id', $request->title)->orWhere('cellphone', $request->title)->orWhere('name', 'like', '%' . $request->title . '%');
         }
         if ($request->uid) {
-            $q->where('id', $request->uid);
+            $q->where('uuid', $request->uid);
         }
         if ($request->timeInterval) {
             $timeInterval = explode("至", $request->timeInterval);

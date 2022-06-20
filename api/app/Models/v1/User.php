@@ -75,6 +75,17 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * 通过用户id找到对应的用户信息
+     *
+     * @param string $uuid
+     * @return \App\User
+     */
+    public function findUserByUuid($uuid)
+    {
+        return $this->where('uuid', $uuid)->first();
+    }
+
+    /**
      * 自定义密码验证
      * 因授权登录无法获取用户输入的密码，所以允许密码为加密后的密码
      * @param $password
