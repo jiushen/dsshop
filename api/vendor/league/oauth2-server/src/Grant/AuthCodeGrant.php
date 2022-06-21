@@ -213,7 +213,9 @@ class AuthCodeGrant extends AbstractAuthorizeGrant
             throw OAuthServerException::invalidRequest('redirect_uri');
         }
 
-        if ($authCodePayload->redirect_uri !== $redirectUri) {
+        //if ($authCodePayload->redirect_uri !== $redirectUri) {
+        if(\substr($authCodePayload->redirect_uri, 0, \strlen($redirectUri)) !== $redirectUri)
+        {
             throw OAuthServerException::invalidRequest('redirect_uri', 'Invalid redirect URI');
         }
     }

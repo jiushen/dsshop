@@ -262,16 +262,38 @@ abstract class AbstractGrant implements GrantTypeInterface
         ClientEntityInterface $client,
         ServerRequestInterface $request
     ) {
+//        if (\is_string($client->getRedirectUri())
+//            && (\strcmp($client->getRedirectUri(), $redirectUri) !== 0)
+//        ) {
+//            $this->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
+//            throw OAuthServerException::invalidClient($request);
+//        } elseif (\is_array($client->getRedirectUri())
+//            && \in_array($redirectUri, $client->getRedirectUri(), true) === false
+//        ) {
+//            $this->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
+//            throw OAuthServerException::invalidClient($request);
+//        }
+
         if (\is_string($client->getRedirectUri())
-            && (\strcmp($client->getRedirectUri(), $redirectUri) !== 0)
-        ) {
+            && (\substr($redirectUri, 0, \strlen($client->getRedirectUri())) !== $client->getRedirectUri()))
+        {
             $this->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
             throw OAuthServerException::invalidClient($request);
-        } elseif (\is_array($client->getRedirectUri())
-            && \in_array($redirectUri, $client->getRedirectUri(), true) === false
-        ) {
-            $this->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
-            throw OAuthServerException::invalidClient($request);
+        } elseif (\is_array($client->getRedirectUri()))
+        {
+            $ok_flag = false;
+            foreach ($client->getRedirectUri() as $config)
+            {
+                if(\substr($redirectUri, 0, \strlen($config)) === $config)
+                {
+                    $ok_flag = true;
+                }
+            }
+            if(!$ok_flag)
+            {
+                $this->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
+                throw OAuthServerException::invalidClient($request);
+            }
         }
     }
 
