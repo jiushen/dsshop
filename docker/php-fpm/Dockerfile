@@ -7,6 +7,7 @@ FROM php:7.4-fpm
 # session shmop simplexml snmp soap sockets sodium spl standard sysvmsg sysvsem
 # sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zend_test zip
 COPY sources.list.stretch /etc/apt/sources.list
+COPY php-fpm.conf /usr/local/etc/php-fpm.conf
 RUN apt-get update \
     && apt-get upgrade -y
 RUN apt-get install -y --allow-downgrades zlib1g=1:1.2.11.dfsg-2 \
