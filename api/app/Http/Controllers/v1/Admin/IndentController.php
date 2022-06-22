@@ -100,8 +100,8 @@ class IndentController extends Controller
             }
         }
         if ($request->uid) {
-            $user = User::findUserByUuid($request->uid);
-            $q->where('user_id', $user->id);
+            //$user = User::findUserByUuid($request->uid);
+            $q->where('user_id', $request->uid);
         }
         if ($request->title) {
             $q->where(function ($q1) use ($request) {
