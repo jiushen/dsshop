@@ -111,14 +111,14 @@ export default {
     },
     fetchopenId() {
         request({
-          url: 'getWpaOpenId',
+          url: '/proxyApi/v1/app/getWpaOpenId',
           method: 'GET'
         }).then(res=>{
             console.log(res.openId,"22222")
             this.openId = res.openId
-        });
+        })
         request({
-            url: 'getImGroupId',
+            url: '/proxyApi/v1/app/getImGroupId',
             method: 'GET'
         }).then(res=>{
             console.log(res.id,"res===========")
