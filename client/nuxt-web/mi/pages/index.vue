@@ -95,6 +95,8 @@
       </div>
     </div>
     <!--分类推荐 end-->
+    <!-- 在线咨询按钮 -->
+    <el-button type="primary" class="jumpButton" @click="toJump()">在线咨询</el-button>
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 import {getList as getGoodList, goodCategory} from '@/api/good'
 import {getList as bannerList} from '@/api/banner'
+import request  from '@/plugins/request'
 export default {
   data() {
     return {
@@ -12,6 +13,8 @@ export default {
       categorySublevel:[],
       recommendCategoryList: [],
       recommendGoodList: [],
+      openId:'',
+      groupId:''
     }
   },
   async asyncData (ctx) {
@@ -50,6 +53,7 @@ export default {
   mounted() {
     this.categoryGood();
     this.getBanner()
+    this.fetchopenId()
   },
   methods: {
     // 分类切换
@@ -98,6 +102,28 @@ export default {
         this.banner = response.data[0]
         this.banner.url = this.banner.url ? this.banner.url.replace('?id=','/') : ''
       })
+    },
+    toJump(){
+        let path = 'http://dsshop.test/oauth/authorize?client_id=4&redirect_uri=https://wpa1.qq.com/aLk78xQL?_type=wpa&qidian=true&auth=commonAuth'
+        let pathTwo='response_type=code&scope=*&state=DdVUdF32xwRPU42hEDTfwAvVIoh21PeYsao6noAr'
+        let href= `${path}&qidian_ex1=${this.openId}&qidian_ex2=${this.groupId}&${pathTwo}`;
+        window.open(href, '_blank');
+    },
+    fetchopenId() {
+        request({
+          url: 'http://114.132.223.235:8082/api/v1/app/getWpaOpenId',
+          method: 'GET'
+        }).then(res=>{
+            console.log(res.openId,"22222")
+            this.openId = res.openId
+        })
+        request({
+            url: 'http://114.132.223.235:8082/api/v1/app/getImGroupId',
+            method: 'GET'
+        }).then(res=>{
+            console.log(res.id,"res===========")
+            this.groupId = res.id
+        })
     }
   }
 }

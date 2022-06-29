@@ -204,3 +204,10 @@
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
+.jumpButton{
+    position: fixed;
+    right: 30px;
+    top: 75%;
+    background-color: #409EFF;
+    border-color: #409EFF;
+}
