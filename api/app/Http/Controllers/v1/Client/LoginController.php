@@ -238,6 +238,7 @@ class LoginController extends Controller
         $return = DB::transaction(function () use ($request) {
             $addUser = new User();
             $addUser->name = $request->cellphone;
+            $addUser->nickname = $request->cellphone;
             $addUser->cellphone = $request->cellphone;
             $addUser->password = bcrypt($request->password);
             $addUser->api_token = hash('sha256', Str::random(60));
