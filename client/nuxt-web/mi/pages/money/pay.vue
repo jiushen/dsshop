@@ -44,10 +44,6 @@
         <div class="min-title">支付方式</div>
         <div class="list">
           <div class="li" v-loading="buttonLoading" @click="payment('weixin')">
-            <el-image
-              class="image"
-              :src="require('assets/img/weixin-pay.jpg')"
-              fit="cover"/>
           </div>
           <div class="li" v-loading="buttonLoading" v-if="list.user" @click="payment(1)">
             预存款支付（{{list.user.money| thousands}}）

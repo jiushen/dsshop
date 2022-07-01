@@ -56,7 +56,6 @@
       </div>
     </div>
     <div class="no-goods" v-else>
-      <img :src="require('assets/img/no-goods.png')"/>
       <div v-if="listQuery.pid">抱歉，“{{title}}”分类下暂无商品，换个分类搜搜吧</div>
       <div v-else>抱歉，没有找到商品“{{title}}”，换个词搜搜吧</div>
     </div>

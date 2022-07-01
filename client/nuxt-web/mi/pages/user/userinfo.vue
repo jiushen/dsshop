@@ -4,9 +4,6 @@
     <div class="padding-top-20">
       <el-form v-loading="loading" label-width="200px">
         <el-form-item label="头像" prop="portrait">
-          <el-avatar :size="80">
-            <img class="portrait" @click="modification('portrait')" :src="user.portrait ? user.portrait : require('assets/img/portrait.gif')"/>
-          </el-avatar>
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <span>{{user.nickname ? user.nickname : '未设置'}}</span>

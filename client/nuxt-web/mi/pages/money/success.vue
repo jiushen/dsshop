@@ -2,7 +2,6 @@
   <div class="box">
     <div class="cart container">
       <div class="empty-cart">
-        <img :src="require('assets/img/payment-success.png')"/>
       </div>
       <div class="instructions">
         <div class="title">支付成功！</div>

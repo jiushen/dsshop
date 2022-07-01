@@ -7,19 +7,16 @@
           <div class="menu">
             <div class="li">微信小程序
               <div class="appcode">
-                <img class="padding" src="~/assets/img/miniweixin.jpg"/>
                 <p>微信小程序</p>
               </div>
             </div>
             <div class="li">h5
               <div class="appcode">
-                <img src="~/assets/img/h5.png"/>
                 <p>h5</p>
               </div>
             </div>
             <div class="li">下载APP
               <div class="appcode">
-                <img src="~/assets/img/android.png"/>
                 <p>安卓APP</p>
               </div>
             </div>
@@ -92,7 +89,7 @@
     <!-- 导航-->
     <div class="container">
       <div class="top-nav">
-        <NuxtLink class="li" to="/"><img class="logo" src="~/assets/img/logo.png"/></NuxtLink>
+        <NuxtLink class="li" to="/"></NuxtLink>
 
         <div class="nav">
           <div class="menu">

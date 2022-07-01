@@ -92,3 +92,6 @@ ul{
   display: block;
   cursor:pointer;
 }
+svg {
+  display: none!important;
+}

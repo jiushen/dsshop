@@ -1,6 +1,5 @@
 <template>
   <div class="box">
-    <img :src="require('assets/img/404.png')"/>
     <div class="explain">
       <div class="name">您访问的页面出错了~</div>
       <div class="link">

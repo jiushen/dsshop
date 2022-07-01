@@ -1,7 +1,7 @@
 <template>
   <div class="min-header">
     <div class="container">
-      <NuxtLink to="/"><img class="logo" src="~/assets/img/logo.png"/></NuxtLink>
+      <NuxtLink to="/"></NuxtLink>
       <div class="title">{{$store.state.cartTitle}}</div>
       <div class="right">
         <template v-if="$store.state.hasLogin">

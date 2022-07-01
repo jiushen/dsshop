@@ -3,7 +3,6 @@
     <div class="portal-main">
       <div class="user-card">
         <el-avatar :size="80" >
-          <img :src="user.portrait ? user.portrait : require('assets/img/portrait.gif')"/>
         </el-avatar>
         <div class="card-box">
           <div class="username">{{ user.cellphone ? (user.nickname ? user.nickname : user.cellphone) : '游客' }}</div>

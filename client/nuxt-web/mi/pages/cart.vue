@@ -3,7 +3,6 @@
     <template v-if="empty">
       <div class="cart container">
         <div class="empty-cart">
-          <img :src="require('assets/img/empty-cart.png')"/>
         </div>
           <div class="instructions">
             <div class="title">您的购物车还是空的！</div>
